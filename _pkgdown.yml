@@ -1,4 +1,10 @@
 url: https://amason30.github.io/testQuartoArticles/
 template:
   bootstrap: 5
-
+navbar:
+  type: default
+  left:
+  - text: Articles
+    menu:
+    - text: Quarto Articles
+      href: articles/quarto-article1.html
