@@ -29,5 +29,20 @@ displayed on the package website. You can read more on the differences
 in [Hadley’s R packages
 book](https://r-pkgs.org/vignettes.html#sec-vignettes-article).
 
+The differences between articles and vignettes, and where they are
+stored (vignettes/articles vs. vignettes), have caused [issues with
+pkgdown finding the rendered article
+pages](https://github.com/r-lib/pkgdown/issues/2733). [Ethan
+Bass](https://github.com/ethanbass) shows the issue is linked to a
+discrepancy between where quarto is rendering the articles vs. where
+pkgdown is searching for them when `build_quarto_articles()` is called
+by pkgdown. I would like to note that Ethan created the [modified
+code](https://github.com/ethanbass/pkgdown) to make this workflow work,
+this repository is just my personal notes in implementing his fix!
+Please see the GitHub issue linked above for more infomation in this
+issue and Ethan’s [patched
+pkgdown](https://github.com/ethanbass/pkgdown) for the code behind the
+fix!
+
 To get started, see [Quarto
 articles](https://amason30.github.io/testQuartoArticles/articles/quarto-article1.html)
