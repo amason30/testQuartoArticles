@@ -21,7 +21,7 @@ Once you are ready to create a pkgdown website for your R package, complete the 
 Before starting, you will need to install [pkgdown](https://github.com/ethanbass/pkgdown) by [ethanbass](https://github.com/ethanbass) using the following code:
 
 ```{r}
-#| execute: false
+#| eval: false
 
 devtools::install_github("ethanbass/pkgdown", ref="qmd_articles")
 ```
@@ -33,7 +33,7 @@ devtools::install_github("ethanbass/pkgdown", ref="qmd_articles")
 Next you will need open the directory for your R package and set up the infastructure of pkgdown website:
 
 ```{r}
-#| execute: false
+#| eval: false
 
 use_pkgdown()
 ```
@@ -70,7 +70,7 @@ Once you are satisfied with your article, run `pkgdown::build_site()`. This will
 When you are ready to deploy your site with GitHub actions (GHA), you need to first set up the page.
 
 ```{r}
-#| execute: false
+#| eval: false
 
 pkgdown::use_pkgdown_github_pages()
 ```
