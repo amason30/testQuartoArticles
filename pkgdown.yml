@@ -3,7 +3,7 @@ pkgdown: 2.1.1.9000
 pkgdown_sha: 8b10575ae7835cd4cbccff12b675a192e6bb84a0
 articles:
   articles/quarto-article1: quarto-article1.html
-last_built: 2024-11-06T16:26Z
+last_built: 2024-11-06T16:58Z
 urls:
   reference: https://amason30.github.io/testQuartoArticles/reference
   article: https://amason30.github.io/testQuartoArticles/articles
