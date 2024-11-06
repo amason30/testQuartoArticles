@@ -66,20 +66,63 @@
 
 
 
-    <p>Notes on getting quarto to build articles with pkgdown:</p>
+    <style type="text/css">
+    ul { list-style-type: square; }
+</style>
+<p>Once you are ready to create a pkgdown website for your R package, complete the following steps. Note: creating articles can be done before or after initiating pkgdown with <code>use_pkgdown()</code>, but I show this after so I can locally build articles to check things like formatting prior to deploying with GitHub actions.</p>
+<section class="section level2"><h2 id="install-a-version-of-pkgdown-that-addresses-quarto-articles-rending-paths">Install a version of pkgdown that addresses quarto articles rending paths<a class="anchor" aria-label="anchor" href="#install-a-version-of-pkgdown-that-addresses-quarto-articles-rending-paths"></a>
+</h2>
+<p>Before starting, you will need to install <a href="https://github.com/ethanbass/pkgdown" class="external-link">pkgdown</a> by <a href="https://github.com/ethanbass" class="external-link">ethanbass</a> using the following code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"ethanbass/pkgdown"</span>, ref<span class="op">=</span><span class="st">"qmd_articles"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<p><em>note</em>: this may have been fix may have been incorporated in rlib’s pkgdown on CRAN since I wrote this, so check if pkgdown now supports his patches.</p>
+</section><section class="section level2"><h2 id="initiate-pkgdown">Initiate pkgdown<a class="anchor" aria-label="anchor" href="#initiate-pkgdown"></a>
+</h2>
+<p>Next you will need open the directory for your R package and set up the infastructure of pkgdown website:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">use_pkgdown</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+</section><section class="section level2"><h2 id="create-your-articles">Create your article(s)<a class="anchor" aria-label="anchor" href="#create-your-articles"></a>
+</h2>
+<p>Now you can create your article(s). There are a couple of ways to do so.</p>
 <ol type="1">
-<li>see this error page: https://github.com/r-lib/pkgdown/issues/2733</li>
-<li>This will lead you to Ethan Bass’ repository: https://github.com/ethanbass/quartoArticleError/blob/master/DESCRIPTION</li>
+<li>Run <code>use_article()</code>. This will create the <code>vignettes/articles</code> directory, if it does not yet exist, and add <code>^vignettes/articles$</code> to the .Rbuildignore. It will also create a .gitignore file in <code>vignettes/articles</code> with the contents <code>*.html</code> and <code>*.R</code>. It will also create a new .Rmd file in <code>vignettes/articles</code>. This route requires some tweaks, as we do not want the .Rmd and rather a .qmd. You will need to:</li>
 </ol>
-<p>You need to install his version of pkgdown - note this may have been fixed since I wrote this, so check that pkgdown now supports his patches.<br></p>
-<ol type="1">
-<li><code>use_pkgdown()</code></li>
-<li>create arciles - note I have not had luck using either the <code>use_vignette()</code> or <code>use_article()</code> functions to set this up. Instead I make /vignettes and /vignettes/articles directories, add .quarto to the main .gitignore and ^vignettes/articles$ to .Rbuildignore. I also create a vignettes/.gitignore with <em>.html, </em>.R, /.quarto/ (note do not add ‘,’ in actual file).</li>
-<li>
-<code>use_pkgdown_github_pages()</code> to set up the github actions workflow</li>
-<li>change the defualt on line 37 from <code>extra-packages: any::pkgdown, local::.</code> to <code>extra-packages: github::ethanbass/pkgdown@qmd_articles, local::.</code> to make sure the patched version of pkgdown is used for the build. This will ensure quarto articles are rendered in the correct place for pkgdown to find them when building the site.</li>
+<ul>
+<li>Delete the .Rmd file.</li>
+<li>Add a new .qmd file in <code>vignettes/articles</code> with no format (it will default to html).</li>
+<li>Add <code>/.quarto/</code> to <code>vignettes/.gitignore</code>.</li>
+<li>Add <code>.quarto</code> to <code>.gitignore</code>.</li>
+</ul>
+<ol start="2" type="1">
+<li>You can manually set up the articles using the following checklist:</li>
 </ol>
-<script id="quarto-html-after-body" type="application/javascript">
+<ul>
+<li>Create <code>vignettes</code> directory.</li>
+<li>Create <code>vignettes/articles</code> directory.</li>
+<li>Create <code>vignettes/.gitignore</code> file containing: <code>*.html</code>, <code>*.R</code>, <code>/.quarto/</code> (note do not add ‘,’ in actual file).</li>
+<li>Add a new .qmd file in <code>vignettes/articles</code> with no format (it will default to html).</li>
+<li>Add <code>^vignettes/articles$</code> to .Rbuildignore.</li>
+<li>Add <code>/.quarto/</code> to <code>vignettes/.gitignore</code>.</li>
+<li>Add <code>.quarto</code> to <code>.gitignore</code>.</li>
+</ul>
+<p>Add content to your article. I recommend running <code><a href="https://pkgdown.r-lib.org/reference/build_articles.html" class="external-link">pkgdown::build_articles()</a></code> to check formatting before deploying with GitHub actions.</p>
+</section><section class="section level2"><h2 id="set-up-site-locally">Set up site locally<a class="anchor" aria-label="anchor" href="#set-up-site-locally"></a>
+</h2>
+<p>Once you are satisfied with your article, run <code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site()</a></code>. This will give you the opportunity to set up formatting for the whole website using the <code>_pkgdown.yml</code> or custom css formatting. You should also add a README and determine your landing page.</p>
+</section><section class="section level2"><h2 id="create-github-actions-to-deploy-site">Create GitHub actions to deploy site<a class="anchor" aria-label="anchor" href="#create-github-actions-to-deploy-site"></a>
+</h2>
+<p>When you are ready to deploy your site with GitHub actions (GHA), you need to first set up the page.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">pkgdown</span><span class="fu">::</span><span class="fu">use_pkgdown_github_pages</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+</div>
+<p>You will then need to change the defualt workflow (<code>.github/workflows/pkgdown.yaml</code>) to ensure the correct version of pkgdown is used to build the site through GHA. Specifically, like 37 should be changed from <code>extra-packages: any::pkgdown, local::.</code> to <code>extra-packages: github::ethanbass/pkgdown@qmd_articles, local::.</code></p>
+<p>Add, commit, and push your changes to GitHub and watch as your site is built!</p>
+</section><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
