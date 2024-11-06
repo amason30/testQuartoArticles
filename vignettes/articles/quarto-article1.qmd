@@ -1,0 +1,12 @@
+---
+title: "quarto article"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+test test test
