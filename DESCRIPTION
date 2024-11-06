@@ -11,5 +11,5 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Config/Needs/website: rmarkdown
-URL: https://github.com/amason30/testQuartoArticles
+URL: https://github.com/amason30/testQuartoArticles, https://amason30.github.io/testQuartoArticles/
 BugReports: https://github.com/amason30/testQuartoArticles/issues
